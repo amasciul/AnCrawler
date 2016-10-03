@@ -6,10 +6,12 @@ with open("/Users/Alexandre/deputes.json") as data_file:
 
     for d in data["export"]["acteurs"]["acteur"]:
 
-        print(d)
-
         lastname = d["etatCivil"]["ident"]["nom"]
         firstname = d["etatCivil"]["ident"]["prenom"]
         title = d["etatCivil"]["ident"]["civ"]
 
-        print("%s %s %s" % (title, firstname, lastname))
+        mandat = d["mandats"]["mandat"]
+        if (len(mandat) > 0 and "election" in mandat[0].keys()):
+            department = mandat[0]["election"]["lieu"]["departement"]
+
+        print("%s %s %s %s" % (title, firstname, lastname, department))
