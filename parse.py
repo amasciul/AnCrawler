@@ -1,7 +1,8 @@
-import json
+import sys, json
 
-def parse():
-    with open("/Users/Alexandre/deputes.json") as data_file:
+def parse(file_path):
+    print("file:" + file_path)
+    with open(file_path) as data_file:
         data = json.load(data_file)
 
         for d in data["export"]["acteurs"]["acteur"]:
@@ -21,4 +22,4 @@ def parse():
 def print_json(data):
     print(json.dumps(data))
 
-parse()
+parse(sys.argv[1])
