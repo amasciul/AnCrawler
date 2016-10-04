@@ -1,6 +1,7 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
-import sys, json
+import sys, json, ijson
+from html.parser import HTMLParser
 
 def run(args):
     if len(args) < 3:
@@ -33,16 +34,43 @@ def parse_members(file_path):
 
             print("%s %s %s %s %s" % (uid, title, firstname, lastname, department))
 
+class MLStripper(HTMLParser):
+    def __init__(self):
+        self.reset()
+        self.strict = False
+        self.convert_charrefs= True
+        self.fed = []
+    def handle_data(self, d):
+        self.fed.append(d)
+    def get_data(self):
+        return ''.join(self.fed)
+
+def strip_tags(html):
+    s = MLStripper()
+    s.feed(html)
+    return s.get_data()
+
 def parse_amendments(file_path):
-    #TODO
-    pass
+    print("file:" + file_path)
+    count = 0
+    with open(file_path) as data_file:
+        parser = ijson.parse(data_file)
+        for prefix, event, value in parser:
+            if (prefix) == ('textesEtAmendements.texteleg.item.amendements.amendement.corps.exposeSommaire'):
+                count = count + 1
+                print(prefix, event, strip_tags(value))
+                print()
+                if count > 4:
+                    break
+    print(count)
+
 
 def print_json(data):
     print(json.dumps(data))
 
 def print_help():
-    print "Usage:"
-    print __file__ + " members path/to/file"
-    print __file__ + " amendments path/to/file"
+    print("Usage:")
+    print(__file__ + " members path/to/file")
+    print(__file__ + " amendments path/to/file")
 
 run(sys.argv)
