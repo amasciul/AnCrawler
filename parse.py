@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import sys, json
 
 def parse(file_path):
