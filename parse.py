@@ -2,7 +2,19 @@
 
 import sys, json
 
-def parse(file_path):
+def run(args):
+    if len(args) < 3:
+        print_help()
+        return
+
+    if args[1] == "members":
+        parse_members(args[2])
+    elif args[1] == "amendments":
+        parse_amendments(args[2])
+    else:
+        print_help()
+
+def parse_members(file_path):
     print("file:" + file_path)
     with open(file_path) as data_file:
         data = json.load(data_file)
@@ -21,7 +33,16 @@ def parse(file_path):
 
             print("%s %s %s %s %s" % (uid, title, firstname, lastname, department))
 
+def parse_amendments(file_path):
+    #TODO
+    pass
+
 def print_json(data):
     print(json.dumps(data))
 
-parse(sys.argv[1])
+def print_help():
+    print "Usage:"
+    print __file__ + " members path/to/file"
+    print __file__ + " amendments path/to/file"
+
+run(sys.argv)
