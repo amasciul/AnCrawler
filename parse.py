@@ -41,8 +41,8 @@ def print_json(data):
     print(json.dumps(data))
 
 def print_help():
-    print "Usage:"
-    print __file__ + " members path/to/file"
-    print __file__ + " amendments path/to/file"
+    print("Usage:")
+    print(__file__ + " members path/to/file")
+    print(__file__ + " amendments path/to/file")
 
 run(sys.argv)
