@@ -66,7 +66,7 @@ def parse_amendments(file_path):
             if prefix == 'textesEtAmendements.texteleg.item.amendements.amendement.uid':
                 uid = value
             elif prefix == 'textesEtAmendements.texteleg.item.amendements.amendement.corps.exposeSommaire':
-                summary = strip_tags(value)
+                summary = strip_tags(value).strip()
             elif prefix == 'textesEtAmendements.texteleg.item.amendements.amendement.item.dateDepot':
                 deposit_date = value
             elif (prefix, event) == ('textesEtAmendements.texteleg.item.amendements.amendement', 'end_map'):
