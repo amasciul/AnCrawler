@@ -35,7 +35,7 @@ def parse_members(file_path):
             if (len(mandat) > 0 and "election" in mandat[0].keys()):
                 department = mandat[0]["election"]["lieu"]["departement"]
 
-            print("%s %s %s %s %s" % (uid, title, firstname, lastname, department))
+            print("%s;%s;%s;%s;%s" % (uid, title, firstname, lastname, department))
 
 
 class MLStripper(HTMLParser):
