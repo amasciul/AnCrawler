@@ -56,12 +56,12 @@ def parse_amendments(file_path):
     with open(file_path) as data_file:
         parser = ijson.parse(data_file)
         for prefix, event, value in parser:
-            if (prefix) == ('textesEtAmendements.texteleg.item.amendements.amendement.corps.exposeSommaire'):
-                count = count + 1
-                print(prefix, event, strip_tags(value))
-                print()
-                if count > 4:
-                    break
+            if (prefix) == ('textesEtAmendements.texteleg.item.amendements.amendement.uid'):
+                uid = value
+                for sub_prefix, sub_event, sub_value in parser:
+                    if (sub_prefix) == ('textesEtAmendements.texteleg.item.amendements.amendement.corps.exposeSommaire'):
+                        break
+                print("%s;%s" % (uid, strip_tags(sub_value)))
     print(count)
 
 
